@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 const app = express();
+// const MongoClient = require('mongodb').MongoClient
 
 app.set('view engine', 'ejs');
 
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 //const uri = "mongodb+srv://hariomAtlas:4oerdOKrEYVbLpqx@atlascluster.d2vjeob.mongodb.net/";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-mongoose.connect("mongodb+srv://hariomAtlas:4oerdOKrEYVbLpqx@atlascluster.d2vjeob.mongodb.net/todolistDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://hariomjmd:qwertyuiop@ac-ummpqf5-shard-00-00.uka8h8a.mongodb.net:27017,ac-ummpqf5-shard-00-01.uka8h8a.mongodb.net:27017,ac-ummpqf5-shard-00-02.uka8h8a.mongodb.net:27017/?ssl=true&replicaSet=atlas-11iqdi-shard-0&authSource=admin&retryWrites=true&w=majority", {useNewUrlParser: true});
 
 const itemsSchema = {
   name: String
@@ -135,7 +136,10 @@ app.post("/delete", function(req, res){
 app.get("/about", function(req, res){
   res.render("about");
 });
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, function() {
+  console.log("Server started successfully");
 });
